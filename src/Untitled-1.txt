@@ -1,0 +1,29 @@
+// Obter uma referência ao elemento de áudio HTML
+const meu_audio = document.getElementById("meu-audio");
+
+// Define as credenciais da API de audio player
+const API_KEY = "SUA_CHAVE_DE_API_AQUI";
+const AUTH_TOKEN = "SEU_TOKEN_DE_AUTENTICAÇÃO_AQUI";
+
+// Define a função para buscar e reproduzir um áudio
+function buscarEreproduzirAudio(nomeDoAudio, nomeDoUsuario) {
+  // Fazer a solicitação para a API de audio player
+  const url = `https://api.audio.com/buscar?audio=${nomeDoAudio}&usuario=${nomeDoUsuario}`;
+  fetch(url, {
+    headers: {
+      "X-API-Key": API_KEY,
+      "Authorization": `Bearer ${AUTH_TOKEN}`
+    }
+  })
+  .then(response => response.json())
+  .then(data => {
+    // Configurar o elemento de áudio para reproduzir o áudio
+    meu_audio.src = data.url;
+    meu_audio.play();
+  })
+  .catch(error => console.error(error));
+}
+
+// Chama a função para buscar e reproduzir o áudio
+buscarEreproduzirAudio("nome_do_audio.mp3", "nome_do_usuario");
+
